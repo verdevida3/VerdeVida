@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VerdeVivo - Plantas y Macetas</title>
+<style>
+  /* Variables de color */
+  :root {
+    --verde-oscuro: #2d6a4f;
+    --verde-claro: #95d5b2;
+    --verde-medio: #52b788;
+    --blanco: #ffffff;
+    --negro: #1b1b1b;
+    --gris-claro: #f0f3f1;
+  }
+
+  /* Reset y base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    background: var(--gris-claro);
+    color: var(--negro);
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--verde-oscuro);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: var(--verde-medio);
+  }
+
+  /* Contenedor general */
+  .container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--blanco);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo svg {
+    width: 48px;
+    height: 48px;
+    fill: var(--verde-medio);
+    filter: drop-shadow(0 0 2px var(--verde-oscuro));
+  }
+  .logo h1 {
+    font-size: 1.8rem;
+    color: var(--verde-oscuro);
+    font-weight: 700;
+  }
+
+  /* Navegación */
+  nav a {
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  /* Carrusel */
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 40px 0;
+    box-shadow: 0 5px 15px rgba(45, 106, 79, 0.3);
+  }
+  .carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  .carousel-images img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    height: 400px;
+  }
+  .carousel-buttons {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  .carousel-buttons button {
+    background: rgba(45, 106, 79, 0.7);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 8px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .carousel-buttons button:hover {
+    background: var(--verde-medio);
+  }
+
+  /* Productos */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+  }
+  .product-card {
+    background: var(--blanco);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(45, 106, 79, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(45, 106, 79, 0.35);
+  }
+  .product-card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    height: 200px;
+  }
+  .product-card h3 {
+    color: var(--verde-oscuro);
+    margin-bottom: 5px;
+  }
+  .product-card p {
+    font-size: 0.9rem;
+    color: var(--verde-medio);
+    margin-bottom: 10px;
+  }
+  .product-card .price {
+    font-weight: 700;
+    color: var(--negro);
+    font-size: 1.2rem;
+  }
+  .btn-buy {
+    margin-top: 10px;
+    background: var(--verde-medio);
+    color: var(--blanco);
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    width: 100%;
+  }
+  .btn-buy:hover {
+    background: var(--verde-oscuro);
+  }
+
+  /* Sección social */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 60px;
+  }
+  .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--verde-medio);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: var(--blanco);
+    font-size: 1.8rem;
+    box-shadow: 0 3px 8px rgba(45, 106, 79, 0.5);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .social-links a:hover {
+    background: var(--verde-oscuro);
+    transform: scale(1.15);
+  }
+
+  /* Footer */
+  footer {
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+    padding: 30px 20px;
+    text-align: center;
+  }
+  footer p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  /* Fondo hojas sutil */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      url('https://www.transparenttextures.com/patterns/leaf.png');
+    opacity: 0.05;
+    z-index: -1;
+  }
+
+  /* Sección testimonios */
+  .testimonials {
+    background: var(--blanco);
+    padding: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(45, 106, 79, 0.15);
+    max-width: 900px;
+    margin: 40px auto;
+  }
+  .testimonials h2 {
+    color: var(--verde-oscuro);
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .testimonial-item {
+    font-style: italic;
+    color: var(--verde-medio);
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 30px;
+  }
+  .testimonial-item::before {
+    content: "“";
+    font-size: 3rem;
+    color: var(--verde-oscuro);
+    position: absolute;
+    left: 0;
+    top: -10px;
+  }
+  .testimonial-author {
+    font-weight: 700;
+    color: var(--negro);
+    margin-left: 30px;
+    margin-bottom: 15px;
+  }
+
+  /* Newsletter */
+  .newsletter {
+    background: var(--verde-claro);
+    padding: 35px 20px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 4px 15px rgba(45, 106, 79, 0.25);
+  }
+  .newsletter h2 {
+    color: var(--verde-oscuro);
+    margin-bottom: 15px;
+  }
+  .newsletter p {
+    margin-bottom: 25px;
+    color: var(--negro);
+  }
+  .newsletter input[type="email"] {
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    width: 70%;
+    max-width: 350px;
+    margin-right: 15px;
+    font-size: 1rem;
+  }
+  .newsletter button {
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .newsletter button:hover {
+    background: var(--negro);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+    nav a {
+      margin-left: 0;
+      font-size: 1rem;
+    }
+    .carousel-images img {
+      height: 250px;
+    }
+    .product-card img {
+      height: 150px;
+    }
+  }
+
+</style>
+<!-- Font Awesome para íconos sociales -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+  <div class="nav-container container">
+    <div class="logo" aria-label="Logo VerdeVivo">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img">
+        <path d="M32 2C24 12 22 26 30 38c6 8 14 10 18 4 0 0-6-16-16-32z"/>
+        <path d="M26 44c-6-8-10-18-8-24 0 0 10 4 14 14 2 5 1 8-6 10z" opacity="0.5"/>
+      </svg>
+      <h1>VerdeVivo</h1>
+    </div>
+    <nav aria-label="Menú principal">
+      <a href="#productos">Productos</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Carrusel -->
+<section class="carousel container" aria-label="Galería de productos destacados">
+  <div class="carousel-images" id="carousel-images">
+    <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80" alt="Maceta de cerámica blanca con planta suculenta" />
+    <img src="https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=800&q=80" alt="Planta grande en maceta de barro" />
+    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80" alt="Jardín vertical con diferentes plantas verdes" />
+  </div>
+  <div class="carousel-buttons">
+    <button aria-label="Imagen anterior" id="prev">&#10094;</button>
+    <button aria-label="Imagen siguiente" id="next">&#10095;</button>
+  </div>
+</section>
+
+<!-- Productos -->
+<section id="productos" class="container">
+  <h2 style="color: var(--verde-oscuro); text-align:center; margin-bottom: 40px;">Nuestros Productos</h2>
+  <div class="products" role="list">
+    <article class="product-card" role="listitem">
+      <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=600&q=80" alt="Maceta blanca con suculenta" />
+      <h3>Maceta Blanca Sencilla</h3>
+      <p>Maceta cerámica ideal para suculentas.</p>
+      <p class="price">$1200</p>
+      <button class="btn-buy" aria-label="Comprar Maceta Blanca Sencilla">Comprar</button>
+    </article>
+
+    <article class="product-card" role="listitem">
+      <img src="https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=600&q=80" alt="Planta grande en maceta de barro" />
+      <h3>Planta Ficus en Maceta Barro</h3>
+      <p>Planta frondosa para decorar interiores.</p>
+      <p class="price">$3200</p>
+      <button class="btn-buy" aria-label="Comprar Planta Ficus en Maceta Barro">Comprar</button>
+    </article>
+
+    <article class="product-card" role="listitem">
+      <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=600&q=80" alt="Jardín vertical con plantas verdes" />
+      <h3>Jardín Vertical Modular</h3>
+      <p>Perfecto para paredes y balcones.</p>
+      <p class="price">$5500</p>
+      <button class="btn-buy" aria-label="Comprar Jardín Vertical Modular">Comprar</button>
+    </article>
+
+    <article class="product-card" role="listitem">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Set de macetas pequeñas coloridas" />
+      <h3>Set Macetas Coloridas</h3>
+      <p>Set de 3 macetas para decorar espacios pequeños.</p>
+      <p class="price">$1800</p>
+      <button class="btn-buy" aria-label="Comprar Set Macetas Coloridas">Comprar</button>
+    </article>
+
+    <article class="product-card" role="listitem">
+      <img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=600&q=80" alt="Planta suculenta en maceta negra" />
+      <h3>Suculenta Mini Negra</h3>
+      <p>Maceta negra con planta suculenta resistente.</p>
+      <p class="price">$950</p>
+      <button class="btn-buy" aria-label="Comprar Suculenta Mini Negra">Comprar</button>
+    </article>
+
+    <article class="product-card" role="listitem">
+      <img src="https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=600&q=80" alt="Planta de helecho en maceta colgante" />
+      <h3>Helecho Colgante</h3>
+      <p>Ideal para balcones y terrazas.</p>
+      <p class="price">$2100</p>
+      <button class="btn-buy" aria-label="Comprar Helecho Colgante">Comprar</button>
+    </article>
+  </div>
+</section>
+
+<!-- Testimonios -->
+<section id="testimonios" class="testimonials container" aria-label="Testimonios de clientes">
+  <h2>Lo que dicen nuestros clientes</h2>
+  <blockquote class="testimonial-item">
+    "Las plantas llegaron en perfectas condiciones y la calidad es insuperable. ¡Recomiendo VerdeVivo!"
+    <footer class="testimonial-author">- Martina G.</footer>
+  </blockquote>
+  <blockquote class="testimonial-item">
+    "Me encanta el diseño de las macetas y la atención fue excelente. Sin dudas volveré a comprar."
+    <footer class="testimonial-author">- Javier M.</footer>
+  </blockquote>
+  <blockquote class="testimonial-item">
+    "El jardín vertical transformó mi balcón. Calidad y estilo en un solo lugar."
+    <footer class="testimonial-author">- Laura P.</footer>
+  </blockquote>
+</section>
+
+<!-- Newsletter -->
+<section id="newsletter" class="newsletter" aria-label="Suscripción al newsletter">
+  <h2>Suscríbete para recibir novedades y ofertas</h2>
+  <p>Únete a nuestra comunidad verde y recibe consejos y promociones exclusivas.</p>
+  <form onsubmit="event.preventDefault(); alert('Gracias por suscribirte!');">
+    <input type="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico para suscripción" required />
+    <button type="submit">Suscribirme</button>
+  </form>
+</section>
+
+<!-- Social links -->
+<section class="social-links" aria-label="Redes sociales">
+  <a href="https://www.facebook.com/VerdeVivo" target="_blank" rel="noopener" aria-label="Facebook de VerdeVivo"><i class="fab fa-facebook-f"></i></a>
+  <a href="https://www.instagram.com/VerdeVivo" target="_blank" rel="noopener" aria-label="Instagram de VerdeVivo"><i class="fab fa-instagram"></i></a>
+  <a href="https://www.twitter.com/VerdeVivo" target="_blank" rel="noopener" aria-label="Twitter de VerdeVivo"><i class="fab fa-twitter"></i></a>
+</section>
+
+<!-- Footer -->
+<footer id="contacto">
+  <p><strong>Contacto:</strong> contacto@verdevivo.com | +54 9 11 1234 5678</p>
+  <p><strong>Horario:</strong> Lunes a Viernes 9:00 - 18:00</p>
+  <p>&copy; 2025 VerdeVivo. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+  // JS para carrusel simple
+  const carouselImages = document.getElementById('carousel-images');
+  const imagesCount = carouselImages.children.length;
+  let index = 0;
+
+  document.getElementById('next').addEventListener('click', () => {
+    index = (index + 1) % imagesCount;
+    carouselImages.style.transform = `translateX(${-index * 100}%)`;
+  });
+
+  document.getElementById('prev').addEventListener('click', () => {
+    index = (index - 1 + imagesCount) % imagesCount;
+    carouselImages.style.transform = `translateX(${-index * 100}%)`;
+  });
+
+  // Auto slide cada 5 segundos
+  setInterval(() => {
+    index = (index + 1) % imagesCount;
+    carouselImages.style.transform = `translateX(${-index * 100}%)`;
+  }, 5000);
+</script>
+
+</body>
+</html>
